@@ -1,0 +1,42 @@
+{
+  "name": "ramda-extras-repl",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@preact/signals": "^1.2.1",
+    "@types/ramda": "^0.29.7",
+    "monaco-editor": "^0.44.0",
+    "preact": "^10.16.0",
+    "purify-ts": "^2.0.1",
+    "ramda": "^0.29.1",
+    "ramda-adjunct": "^4.1.1"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.5.0",
+    "@typescript-eslint/eslint-plugin": "5.59.0",
+    "@typescript-eslint/experimental-utils": "5.59.0",
+    "@typescript-eslint/parser": "5.59.0",
+    "autoprefixer": "^10.4.16",
+    "prettier": "3.0.3",
+    "eslint": "^8.45.0",
+    "eslint-plugin-functional": "5.0.8",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-jsx-a11y": "6.7.1",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "eslint-plugin-simple-import-sort": "10.0.0",
+    "eslint-plugin-unused-imports": "2.0.0",
+    "postcss": "^8.4.31",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vite-plugin-svgr": "^4.1.0"
+  }
+}

@@ -1,0 +1,17 @@
+rules:
+  "@typescript-eslint/no-misused-promises":
+    - "error"
+    -
+      checksVoidReturn: false
+      checksConditionals: true
+      allowThen: true
+      allowCatch: true
+      allowedPromiseNames: []
+      allowedPromiseExtensions: []
+  "@typescript-eslint/no-non-null-assertion": "error"
+  "@typescript-eslint/semi":
+    - 2
+    - "never"
+  "@typescript-eslint/ban-ts-comment": "off"
+  "@typescript-eslint/require-await": "off"
+

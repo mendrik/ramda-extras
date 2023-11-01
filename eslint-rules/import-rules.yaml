@@ -1,0 +1,15 @@
+extends:
+  - "plugin:import/typescript"
+  - "plugin:import/recommended"
+plugins:
+  - "simple-import-sort"
+  - "import"
+  - "unused-imports"
+rules:
+  import/first: "error"
+  import/newline-after-import: "error"
+  import/no-duplicates: "error"
+  import/no-unresolved: 0
+  unused-imports/no-unused-imports:
+    - "error"
+

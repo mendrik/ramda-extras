@@ -1,0 +1,23 @@
+@import './title.css';
+
+#app { 
+  width: 100vw;
+  height: 100dvh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 40px 1fr;
+  gap: 1px;
+
+  & nav {
+    grid-column: 1 / span 2;
+    padding: 5px;
+    font-family: monospace;
+    font-weight: bold;
+    color: #666;
+  }
+}
+
+.box {
+  font-family: 'Fire Code', monospace;
+  grid-row: 2;
+}
