@@ -5,17 +5,15 @@ import "./app.css"
 import { signal } from "@preact/signals"
 import { editor as E } from "monaco-editor"
 
-import theme from "./assets/dracula.theme.json"
 import { Output } from "./output"
 
-const editor = signal<E.IStandaloneCodeEditor | null>(null)
+export const editor = signal<E.IStandaloneCodeEditor | null>(null)
 
 export const App = (props: E.IStandaloneEditorConstructionOptions) => {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (ref.current != null) {
-      E.defineTheme("dracula", theme as E.IStandaloneThemeData)
       editor.value = E.create(ref.current, {
         theme: "dracula",
         showFoldingControls: "mouseover",
@@ -26,9 +24,6 @@ export const App = (props: E.IStandaloneEditorConstructionOptions) => {
         fontFamily: "Fira Code",
         fontLigatures: true,
         fontSize: 14,
-        scrollbar: {
-          verticalScrollbarSize: 10,
-        },
         ...props,
       })
     }
@@ -37,13 +32,13 @@ export const App = (props: E.IStandaloneEditorConstructionOptions) => {
   return (
     <>
       <nav>
-        <h2 className="title" data-title="ramda with extras">
-          ramda with extras
+        <h2 className="title" data-title="typescript ramda with extras">
+          typescript ramda with extras
         </h2>
       </nav>
       <div class="box editor" ref={ref}></div>
 
-      <Output />
+      <Output editor={editor.value} />
     </>
   )
 }
