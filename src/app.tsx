@@ -9,7 +9,7 @@ import { Output } from "./output"
 
 export const editor = signal<E.IStandaloneCodeEditor | null>(null)
 
-export const App = (props: E.IStandaloneEditorConstructionOptions) => {
+export const App = () => {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -23,11 +23,10 @@ export const App = (props: E.IStandaloneEditorConstructionOptions) => {
         language: "typescript",
         fontFamily: "Fira Code",
         fontLigatures: true,
-        fontSize: 14,
-        ...props,
+        fontSize: 14
       })
     }
-  }, [props, ref])
+  }, [ref])
 
   return (
     <>
@@ -37,7 +36,6 @@ export const App = (props: E.IStandaloneEditorConstructionOptions) => {
         </h2>
       </nav>
       <div class="box editor" ref={ref}></div>
-
       <Output editor={editor.value} />
     </>
   )

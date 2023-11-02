@@ -8,8 +8,11 @@ export default defineConfig({
   css: {
     devSourcemap: true,
     postcss: {
-      plugins: [autoprefixer()],
-    },
+      plugins: [autoprefixer()]
+    }
   },
-  plugins: [preact(), svgr()],
+  optimizeDeps: {
+    exclude: ["@swc/wasm-web"]
+  },
+  plugins: [preact(), svgr()]
 })

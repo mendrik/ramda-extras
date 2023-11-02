@@ -2,6 +2,7 @@ import { render } from "preact"
 
 import "./index.css"
 
+import initSwc from "@swc/wasm-web"
 import { editor as E } from "monaco-editor"
 import editorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker"
 import cssWorker from "monaco-editor/esm/vs/language/css/css.worker?worker"
@@ -9,6 +10,7 @@ import htmlWorker from "monaco-editor/esm/vs/language/html/html.worker?worker"
 import jsonWorker from "monaco-editor/esm/vs/language/json/json.worker?worker"
 import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker"
 import { Maybe } from "purify-ts/Maybe"
+import { MaybeAsync } from "purify-ts/MaybeAsync"
 
 import { App } from "./app.tsx"
 import theme from "./assets/dracula.theme.json"
@@ -23,16 +25,23 @@ self.MonacoEnvironment = {
     if (label === "css" || label === "scss" || label === "less") {
       return new cssWorker()
     }
-    if (label === "html" || label === "handlebars" || label === "razor") {
+    if (label === "html") {
       return new htmlWorker()
     }
     if (label === "typescript" || label === "javascript") {
       return new tsWorker()
     }
     return new editorWorker()
-  },
+  }
 }
 
-Maybe.fromNullable(document.getElementById("app")).ifJust((el) =>
-  render(<App />, el)
-)
+const app = document.getElementById("app")
+
+void MaybeAsync(() => initSwc())
+  .chain(() =>
+    MaybeAsync.liftMaybe(Maybe.fromNullable(app)).map((el) =>
+      render(<App />, el)
+    )
+  )
+  .run()
+  .catch(console.error)
