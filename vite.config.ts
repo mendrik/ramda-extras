@@ -4,7 +4,6 @@ import svgr from "vite-plugin-svgr"
 import autoprefixer from "autoprefixer"
 
 export default defineConfig({
-  base: "/ramda-extras",
   build: { outDir: "docs" },
   css: {
     devSourcemap: true,
