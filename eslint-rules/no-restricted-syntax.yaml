@@ -1,5 +1,5 @@
 rules:
   no-restricted-syntax:
     - "error"
-    - selector: ":matches(ImportNamespaceSpecifier, ExportAllDeclaration, ExportNamespaceSpecifier)"
+    - selector: ":matches(ExportAllDeclaration, ExportNamespaceSpecifier)"
       message: "Import/export only modules you need"

@@ -5,9 +5,14 @@ import "./app.css"
 import { signal } from "@preact/signals"
 import { transformSync } from "@swc/wasm-web"
 import { editor as E } from "monaco-editor"
+import * as R from "ramda"
 import type { Options } from "@swc/wasm-web"
 
 import { Output, output } from "./output"
+
+Object.getOwnPropertyNames(R).forEach((name) =>
+  R.assoc(name, R.propOr(undefined, name, R), window)
+)
 
 const options: Options = {
   jsc: {
