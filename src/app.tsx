@@ -3,11 +3,48 @@ import { useEffect, useRef } from "preact/hooks"
 import "./app.css"
 
 import { signal } from "@preact/signals"
+import { transformSync } from "@swc/wasm-web"
 import { editor as E } from "monaco-editor"
+import type { Options } from "@swc/wasm-web"
 
-import { Output } from "./output"
+import { Output, output } from "./output"
 
+const options: Options = {
+  jsc: {
+    parser: {
+      syntax: "typescript",
+      dynamicImport: true
+    },
+    target: "es2022"
+  },
+  module: {
+    type: "commonjs"
+  }
+}
 export const editor = signal<E.IStandaloneCodeEditor | null>(null)
+
+const handleCodeChange = () => {
+  if (output.value && editor.value) {
+    try {
+      const js = transformSync(editor.value.getValue(), options)
+      const result: unknown = eval(js.code)
+      if (result !== undefined) {
+        output.value.setValue(
+          JSON.stringify(result, null, 2).replace('"use strict"', "")
+        )
+      } else {
+        output.value.setValue("")
+      }
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        output.value.getModel()?.setValue(`${e.message}\n${e.stack ?? ""}`)
+      } else {
+        output.value.getModel()?.setValue(`${e as string}`)
+      }
+      console.warn(e)
+    }
+  }
+}
 
 export const App = () => {
   const ref = useRef<HTMLDivElement>(null)
@@ -25,6 +62,7 @@ export const App = () => {
         fontLigatures: true,
         fontSize: 14
       })
+      editor.value.onDidChangeModelContent(handleCodeChange)
     }
   }, [ref])
 
@@ -36,7 +74,7 @@ export const App = () => {
         </h2>
       </nav>
       <div class="box editor" ref={ref}></div>
-      <Output editor={editor.value} />
+      <Output />
     </>
   )
 }
