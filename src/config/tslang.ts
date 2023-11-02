@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-escape */
 import { languages } from "monaco-editor"
+import * as P from "purify-ts"
 import * as R from "ramda"
 import * as RA from "ramda-adjunct"
 /*---------------------------------------------------------------------------------------------
@@ -76,10 +77,11 @@ export const conf: languages.LanguageConfiguration = {
   }
 }
 
-export const keywords = R.concat(
-  Object.getOwnPropertyNames(R),
-  Object.getOwnPropertyNames(RA)
-)
+export const keywords = [
+  ...Object.getOwnPropertyNames(R),
+  ...Object.getOwnPropertyNames(RA),
+  ...Object.getOwnPropertyNames(P)
+]
 
 export const language: languages.IMonarchLanguage = {
   // Set defaultToken to invalid to see what you do not tokenize yet

@@ -5,17 +5,26 @@ import "./app.css"
 import { signal } from "@preact/signals"
 import { transformSync } from "@swc/wasm-web"
 import { editor as E } from "monaco-editor"
+import * as P from "purify-ts"
 import * as R from "ramda"
+import * as RA from "ramda-adjunct"
 
 import { editorOptions } from "./config/editor"
 import { options } from "./config/swc"
+import { keywords } from "./config/tslang"
 import { Output, output } from "./output"
 
-Object.getOwnPropertyNames(R).forEach((name) =>
-  R.assoc(name, R.propOr(undefined, name, R), window)
-)
-
 export const editor = signal<E.IStandaloneCodeEditor | null>(null)
+
+/* eslint-disable */
+keywords.forEach((k) => {
+  // @ts-ignore
+  if (!window[k]) {
+    // @ts-ignore
+    window[k] = R[k] ?? RA[k] ?? P[k]
+  }
+})
+/* eslint-enable */
 
 const handleCodeChange = (): void => {
   if (output.value && editor.value) {
