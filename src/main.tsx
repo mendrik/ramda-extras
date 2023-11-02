@@ -2,42 +2,15 @@ import { render } from "preact"
 
 import "./index.css"
 
-import initSwc from "@swc/wasm-web"
-import editorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker"
-import cssWorker from "monaco-editor/esm/vs/language/css/css.worker?worker"
-import htmlWorker from "monaco-editor/esm/vs/language/html/html.worker?worker"
-import jsonWorker from "monaco-editor/esm/vs/language/json/json.worker?worker"
 import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker"
 import { Maybe } from "purify-ts/Maybe"
-import { MaybeAsync } from "purify-ts/MaybeAsync"
 
 import { App } from "./app.tsx"
 
 self.MonacoEnvironment = {
-  getWorker: (_, label) => {
-    if (label === "json") {
-      return new jsonWorker()
-    }
-    if (label === "css" || label === "scss" || label === "less") {
-      return new cssWorker()
-    }
-    if (label === "html") {
-      return new htmlWorker()
-    }
-    if (label === "typescript" || label === "javascript") {
-      return new tsWorker()
-    }
-    return new editorWorker()
-  }
+  getWorker: () => new tsWorker()
 }
 
 const app = document.getElementById("app")
 
-void MaybeAsync(() => initSwc())
-  .chain(() =>
-    MaybeAsync.liftMaybe(Maybe.fromNullable(app)).map((el) =>
-      render(<App />, el)
-    )
-  )
-  .run()
-  .catch(console.error)
+Maybe.fromNullable(app).map((el) => render(<App />, el))

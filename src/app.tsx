@@ -3,14 +3,13 @@ import { useEffect, useRef } from "preact/hooks"
 import "./app.css"
 
 import { signal } from "@preact/signals"
-import { transformSync } from "@swc/wasm-web"
 import { editor as E } from "monaco-editor"
 import * as P from "purify-ts"
 import * as R from "ramda"
 import * as RA from "ramda-adjunct"
+import { transpile } from "typescript"
 
 import { editorOptions } from "./config/editor"
-import { options } from "./config/swc"
 import { keywords } from "./config/tslang"
 import { Output, output } from "./output"
 
@@ -29,8 +28,8 @@ keywords.forEach((k) => {
 const handleCodeChange = (): void => {
   if (output.value && editor.value) {
     try {
-      const js = transformSync(editor.value.getValue(), options)
-      const result: unknown = eval(js.code)
+      const js = transpile(editor.value.getValue(), { noEmit: true })
+      const result: unknown = eval(js)
       if (result !== undefined) {
         output.value.setValue(
           JSON.stringify(result, null, 2).replace('"use strict"', "")
