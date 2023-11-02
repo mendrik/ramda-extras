@@ -27,7 +27,8 @@ body {
   height: 100dvh;
   color: rgba(255, 255, 255, 0.87);
   background-color: rgb(40, 42, 54);
-  flex-direction: column;   
+  flex-direction: column;
+  overflow: hidden;
 }
 
 h1 {
@@ -43,15 +44,17 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  cursor: pointer;
   transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  cursor: pointer;
+
+  &:hover {
+    border-color: #646cff;
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
 }
 
 @media (prefers-color-scheme: light) {

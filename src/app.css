@@ -1,9 +1,10 @@
-@import './title.css';
+@import "./title.pcss";
 
-#app { 
+#app {
   width: 100vw;
   height: 100dvh;
   display: grid;
+  background-color: black;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 40px 1fr;
   gap: 1px;
@@ -14,10 +15,18 @@
     font-family: monospace;
     font-weight: bold;
     color: #666;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(56 60 87);
   }
 }
 
 .box {
-  font-family: 'Fire Code', monospace;
+  font-family: "Fire Code", monospace;
   grid-row: 2;
+  background-color: rgb(40, 42, 54);
+}
+
+.monaco-editor {
+  padding-top: 15px;
 }

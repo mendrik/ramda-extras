@@ -1,11 +1,11 @@
-import { useEffect, useRef } from 'preact/hooks'
+import { useEffect, useRef } from "preact/hooks"
 
-import './app.css'
+import "./app.css"
 
-import { signal } from '@preact/signals'
-import { editor as E } from 'monaco-editor'
+import { signal } from "@preact/signals"
+import { editor as E } from "monaco-editor"
 
-import theme from './assets/dracula.theme.json'
+import theme from "./assets/dracula.theme.json"
 
 const editor = signal<E.IStandaloneCodeEditor | null>(null)
 
@@ -14,18 +14,18 @@ export const App = (props: E.IStandaloneEditorConstructionOptions) => {
 
   useEffect(() => {
     if (ref.current != null) {
-      E.defineTheme('dracula', theme as E.IStandaloneThemeData)
+      E.defineTheme("dracula", theme as E.IStandaloneThemeData)
       editor.value = E.create(ref.current, {
-        theme: 'dracula',
-        showFoldingControls: 'mouseover',
+        theme: "dracula",
+        showFoldingControls: "mouseover",
         minimap: { enabled: false },
-        lineNumbers: 'off',
-        renderLineHighlight: 'none',
-        language: 'typescript',
+        lineNumbers: "off",
+        renderLineHighlight: "none",
+        language: "typescript",
         scrollbar: {
-          verticalScrollbarSize: 10
+          verticalScrollbarSize: 10,
         },
-        ...props
+        ...props,
       })
     }
   }, [props, ref])
@@ -33,7 +33,9 @@ export const App = (props: E.IStandaloneEditorConstructionOptions) => {
   return (
     <>
       <nav>
-        <h2 data-gold="Ramda Extras">Ramda Extras</h2>
+        <h2 className="title" data-title="ramda with extras">
+          ramda with extras
+        </h2>
       </nav>
       <div class="box editor" ref={ref}></div>
       <div class="box outout"></div>
