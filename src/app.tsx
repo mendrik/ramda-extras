@@ -23,7 +23,7 @@ const options: Options = {
 }
 export const editor = signal<E.IStandaloneCodeEditor | null>(null)
 
-const handleCodeChange = () => {
+const handleCodeChange = (): void => {
   if (output.value && editor.value) {
     try {
       const js = transformSync(editor.value.getValue(), options)
@@ -46,6 +46,15 @@ const handleCodeChange = () => {
   }
 }
 
+const debounced = (fn: () => void) => {
+  // eslint-disable-next-line functional/no-let
+  let id = -1
+  return () => {
+    clearTimeout(id)
+    id = setTimeout(fn, 500)
+  }
+}
+
 export const App = () => {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -62,7 +71,7 @@ export const App = () => {
         fontLigatures: true,
         fontSize: 14
       })
-      editor.value.onDidChangeModelContent(handleCodeChange)
+      editor.value.onDidChangeModelContent(debounced(handleCodeChange))
     }
   }, [ref])
 
