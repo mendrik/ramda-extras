@@ -1,0 +1,8 @@
+.output {
+  white-space: pre;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 15px;
+  font-family: "Fira Code", monospace;
+  font-size: 14px;
+}

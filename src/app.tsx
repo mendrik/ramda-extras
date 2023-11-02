@@ -6,6 +6,7 @@ import { signal } from "@preact/signals"
 import { editor as E } from "monaco-editor"
 
 import theme from "./assets/dracula.theme.json"
+import { Output } from "./output"
 
 const editor = signal<E.IStandaloneCodeEditor | null>(null)
 
@@ -22,6 +23,9 @@ export const App = (props: E.IStandaloneEditorConstructionOptions) => {
         lineNumbers: "off",
         renderLineHighlight: "none",
         language: "typescript",
+        fontFamily: "Fira Code",
+        fontLigatures: true,
+        fontSize: 14,
         scrollbar: {
           verticalScrollbarSize: 10,
         },
@@ -38,7 +42,8 @@ export const App = (props: E.IStandaloneEditorConstructionOptions) => {
         </h2>
       </nav>
       <div class="box editor" ref={ref}></div>
-      <div class="box outout"></div>
+
+      <Output />
     </>
   )
 }
