@@ -3,7 +3,6 @@ import { render } from "preact"
 import "./index.css"
 
 import initSwc from "@swc/wasm-web"
-import { editor as E } from "monaco-editor"
 import editorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker"
 import cssWorker from "monaco-editor/esm/vs/language/css/css.worker?worker"
 import htmlWorker from "monaco-editor/esm/vs/language/html/html.worker?worker"
@@ -13,9 +12,6 @@ import { Maybe } from "purify-ts/Maybe"
 import { MaybeAsync } from "purify-ts/MaybeAsync"
 
 import { App } from "./app.tsx"
-import theme from "./assets/dracula.theme.json"
-
-E.defineTheme("dracula", theme as E.IStandaloneThemeData)
 
 self.MonacoEnvironment = {
   getWorker: (_, label) => {

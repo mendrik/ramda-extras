@@ -10,6 +10,6 @@ rules:
   import/newline-after-import: "error"
   import/no-duplicates: "error"
   import/no-unresolved: 0
+  import/default: 0
   unused-imports/no-unused-imports:
     - "error"
-

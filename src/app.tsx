@@ -6,26 +6,15 @@ import { signal } from "@preact/signals"
 import { transformSync } from "@swc/wasm-web"
 import { editor as E } from "monaco-editor"
 import * as R from "ramda"
-import type { Options } from "@swc/wasm-web"
 
+import { editorOptions } from "./config/editor"
+import { options } from "./config/swc"
 import { Output, output } from "./output"
 
 Object.getOwnPropertyNames(R).forEach((name) =>
   R.assoc(name, R.propOr(undefined, name, R), window)
 )
 
-const options: Options = {
-  jsc: {
-    parser: {
-      syntax: "typescript",
-      dynamicImport: true
-    },
-    target: "es2022"
-  },
-  module: {
-    type: "commonjs"
-  }
-}
 export const editor = signal<E.IStandaloneCodeEditor | null>(null)
 
 const handleCodeChange = (): void => {
@@ -65,17 +54,7 @@ export const App = () => {
 
   useEffect(() => {
     if (ref.current != null) {
-      editor.value = E.create(ref.current, {
-        theme: "dracula",
-        showFoldingControls: "mouseover",
-        minimap: { enabled: false },
-        lineNumbers: "off",
-        renderLineHighlight: "none",
-        language: "typescript",
-        fontFamily: "Fira Code",
-        fontLigatures: true,
-        fontSize: 14
-      })
+      editor.value = E.create(ref.current, editorOptions)
       editor.value.onDidChangeModelContent(debounced(handleCodeChange))
     }
   }, [ref])
