@@ -1,1 +1,1 @@
-https://wwww.ramda.run
+https://www.ramda.run
