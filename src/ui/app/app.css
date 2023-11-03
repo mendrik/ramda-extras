@@ -18,9 +18,3 @@
   column-span: 1;
   max-width: 50vw;
 }
-
-.monaco-editor {
-  padding-top: 15px;
-  width: 100%;
-  flex: 1;
-}

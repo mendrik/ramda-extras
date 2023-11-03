@@ -24,5 +24,8 @@ export const editorOptions: E.IStandaloneEditorConstructionOptions = {
   fontFamily: "Fira Code",
   fontLigatures: true,
   fontSize: 14,
-  value: initialCode
+  value: initialCode,
+  scrollbar: {
+    useShadows: false
+  }
 }
