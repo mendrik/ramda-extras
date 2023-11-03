@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@preact/signals": "^1.2.1",
+    "@tabler/icons": "^2.40.0",
     "monaco-editor": "0.44.0",
     "preact": "^10.16.0",
     "purify-ts": "^2.0.1",
@@ -18,8 +19,8 @@
     "sucrase": "3.34.0"
   },
   "devDependencies": {
-    "@types/ramda": "^0.29.7",
     "@preact/preset-vite": "^2.5.0",
+    "@types/ramda": "^0.29.7",
     "@typescript-eslint/eslint-plugin": "5.59.0",
     "@typescript-eslint/experimental-utils": "5.59.0",
     "@typescript-eslint/parser": "5.59.0",
@@ -37,8 +38,8 @@
     "postcss": "^8.4.31",
     "prettier": "3.0.3",
     "rollup-plugin-visualizer": "5.9.2",
+    "typescript": "^5.0.2",
     "vite": "^4.4.5",
-    "vite-plugin-svgr": "^4.1.0",
-    "typescript": "^5.0.2"
+    "vite-plugin-svgr": "^4.1.0"
   }
 }

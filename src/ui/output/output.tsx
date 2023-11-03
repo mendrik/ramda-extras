@@ -5,7 +5,7 @@ import "./output.css"
 import { signal } from "@preact/signals"
 import { editor as E } from "monaco-editor"
 
-import { viewerOptions } from "./config/viewer"
+import { viewerOptions } from "../../config/viewer"
 
 export const output = signal<E.IStandaloneCodeEditor | null>(null)
 

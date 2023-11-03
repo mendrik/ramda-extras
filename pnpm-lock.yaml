@@ -8,6 +8,9 @@ dependencies:
   '@preact/signals':
     specifier: ^1.2.1
     version: 1.2.1(preact@10.18.1)
+  '@tabler/icons':
+    specifier: ^2.40.0
+    version: 2.40.0
   monaco-editor:
     specifier: 0.44.0
     version: 0.44.0
@@ -869,6 +872,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@tabler/icons@2.40.0:
+    resolution: {integrity: sha512-VqKsBSX159cLFTnCzkCmGhZtSPJHNN0lM2sC4xe0HPOfPUnjiex7rDHDdut4oe4iKRecDDpwXwM9BcU6xCPlCg==}
+    dev: false
 
   /@types/estree@1.0.4:
     resolution: {integrity: sha512-2JwWnHK9H+wUZNorf2Zr6ves96WHoWDJIftkcxPKsS7Djta6Zu519LarhRNljPXkpsZR2ZMwNCPeW7omW07BJw==}
