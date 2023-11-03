@@ -10,6 +10,9 @@ languages.register({ id: myLang })
 languages.setLanguageConfiguration(myLang, conf)
 languages.setMonarchTokensProvider(myLang, language)
 
+export const initialCode =
+  new URLSearchParams(document.location.search).get("code") ?? undefined
+
 export const editorOptions: E.IStandaloneEditorConstructionOptions = {
   theme: "dracula",
   automaticLayout: true,
@@ -20,5 +23,6 @@ export const editorOptions: E.IStandaloneEditorConstructionOptions = {
   language: myLang,
   fontFamily: "Fira Code",
   fontLigatures: true,
-  fontSize: 14
+  fontSize: 14,
+  value: initialCode
 }

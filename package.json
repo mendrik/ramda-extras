@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@preact/signals": "^1.2.1",
-    "@tabler/icons": "^2.40.0",
+    "@tabler/icons-react": "^2.40.0",
     "monaco-editor": "0.44.0",
     "preact": "^10.16.0",
     "purify-ts": "^2.0.1",

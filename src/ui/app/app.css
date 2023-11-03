@@ -8,18 +8,6 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 40px 1fr;
   gap: 1px;
-
-  & nav {
-    grid-column: 1 / span 2;
-    padding: 5px;
-    font-family: monospace;
-    font-weight: bold;
-    color: #666;
-    display: flex;
-    justify-content: center;
-    background-color: rgb(56 60 87);
-    max-width: 100vw;
-  }
 }
 
 .box {
