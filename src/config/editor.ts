@@ -15,7 +15,7 @@ export const editorOptions: E.IStandaloneEditorConstructionOptions = {
   automaticLayout: true,
   showFoldingControls: "mouseover",
   minimap: { enabled: false },
-  lineNumbers: "off",
+  lineNumbers: "on",
   renderLineHighlight: "none",
   language: myLang,
   fontFamily: "Fira Code",

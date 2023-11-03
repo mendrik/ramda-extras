@@ -6,22 +6,13 @@ import autoprefixer from "autoprefixer"
 
 export default defineConfig({
   build: {
-    outDir: "docs",
-    rollupOptions: {
-      output: {
-        interop: "compat",
-        generatedCode: "es2015"
-      }
-    }
+    outDir: "docs"
   },
   css: {
     devSourcemap: true,
     postcss: {
       plugins: [autoprefixer()]
     }
-  },
-  optimizeDeps: {
-    exclude: ["@swc/wasm-web"]
   },
   plugins: [preact(), svgr()]
 })

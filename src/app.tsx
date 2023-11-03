@@ -4,24 +4,20 @@ import "./app.css"
 
 import { signal } from "@preact/signals"
 import { editor as E } from "monaco-editor"
+import * as P from "purify-ts"
+import { keys } from "ramda"
+import * as R from "ramda"
+import * as RA from "ramda-adjunct"
 import { transform } from "sucrase"
 
 import { editorOptions } from "./config/editor"
-import { keywords } from "./config/tslang"
 import { Output, output } from "./output"
 
 export const editor = signal<E.IStandaloneCodeEditor | null>(null)
 
-const props = Object.fromEntries(
-  keywords.map(([key, value]) => [
-    key,
-    {
-      value,
-      writable: true,
-      enumerable: true
-    }
-  ])
-)
+const ramdaKeys = keys(R)
+const ramdaAdjunctKeys = R.without(ramdaKeys, keys(RA))
+const purifyKeys = R.without([...ramdaKeys, ...ramdaAdjunctKeys], keys(P))
 
 const handleCodeChange = (): void => {
   if (output.value && editor.value) {
@@ -29,8 +25,18 @@ const handleCodeChange = (): void => {
       const js = transform(editor.value.getValue(), {
         transforms: ["typescript"]
       })
-      Object.defineProperties(window, props)
-      const result: unknown = window.eval(js.code)
+      Object.defineProperties(window, {
+        R: { value: R, writable: false },
+        RA: { value: RA, writable: false },
+        P: { value: P, writable: false }
+      })
+      const code = `
+        const {${ramdaKeys.join(",")}} = R;
+        const {${ramdaAdjunctKeys.join(",")}} = RA;
+        const {${purifyKeys.join(",")}} = P;
+       ${js.code}`
+
+      const result: unknown = window.eval(code)
       if (result !== undefined) {
         output.value.setValue(
           JSON.stringify(result, null, 2).replace('"use strict"', "")
