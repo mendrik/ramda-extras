@@ -4,9 +4,6 @@ import "./app.css"
 
 import { signal } from "@preact/signals"
 import { editor as E } from "monaco-editor"
-import * as P from "purify-ts"
-import * as R from "ramda"
-import * as RA from "ramda-adjunct"
 import { transform } from "sucrase"
 
 import { editorOptions } from "./config/editor"
@@ -15,19 +12,16 @@ import { Output, output } from "./output"
 
 export const editor = signal<E.IStandaloneCodeEditor | null>(null)
 
-/* eslint-disable */
-const exposeGlobals = () => {
-  keywords.forEach((k: any) => {
-    if (!window[k]) {
-      // @ts-ignore
-      const func = R[k] ?? RA[k] ?? P[k]
-      if (RA.isFunction(func)) {
-        window[k] = func
-      }
+const props = Object.fromEntries(
+  keywords.map(([key, value]) => [
+    key,
+    {
+      value,
+      writable: true,
+      enumerable: true
     }
-  })
-}
-/* eslint-enable */
+  ])
+)
 
 const handleCodeChange = (): void => {
   if (output.value && editor.value) {
@@ -35,8 +29,8 @@ const handleCodeChange = (): void => {
       const js = transform(editor.value.getValue(), {
         transforms: ["typescript"]
       })
-      exposeGlobals()
-      const result: unknown = eval(js.code)
+      Object.defineProperties(window, props)
+      const result: unknown = window.eval(js.code)
       if (result !== undefined) {
         output.value.setValue(
           JSON.stringify(result, null, 2).replace('"use strict"', "")

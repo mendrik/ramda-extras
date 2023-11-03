@@ -78,13 +78,19 @@ export const conf: languages.LanguageConfiguration = {
 }
 
 export const keywords = [
-  ...Object.getOwnPropertyNames(R),
-  ...Object.getOwnPropertyNames(RA),
-  ...Object.getOwnPropertyNames(P)
-] as Array<keyof typeof R | keyof typeof RA | keyof typeof P>
+  ...R.keys(R)
+    .filter((r) => RA.isFunction(R[r]))
+    .map((r) => [r, R[r]]),
+  ...R.keys(RA)
+    .filter((r) => RA.isFunction(RA[r]))
+    .map((r) => [r, RA[r]]),
+  ...R.keys(P)
+    .filter((r) => RA.isFunction(P[r]))
+    .map((r) => [r, P[r]])
+] as Array<[string, R.Fn]>
 
 const mappers: languages.IMonarchLanguageRule[] = keywords.map((k) => [
-  new RegExp(`\\b${k}\\b`),
+  new RegExp(`\\b${k[0]}\\b`),
   "library.function"
 ])
 
