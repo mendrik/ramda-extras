@@ -3,6 +3,10 @@
     "inherit": true,
     "rules": [
         {
+            "token": "",
+            "background": "282a36"
+        },
+        {
             "token": "library.function",
             "foreground": "#03d400"
         },
