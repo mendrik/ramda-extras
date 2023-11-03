@@ -36,6 +36,7 @@
     "eslint-plugin-unused-imports": "2.0.0",
     "postcss": "^8.4.31",
     "prettier": "3.0.3",
+    "rollup-plugin-visualizer": "5.9.2",
     "vite": "^4.4.5",
     "vite-plugin-svgr": "^4.1.0",
     "typescript": "^5.0.2"

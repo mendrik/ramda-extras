@@ -5,6 +5,8 @@ import "./output.css"
 import { signal } from "@preact/signals"
 import { editor as E } from "monaco-editor"
 
+import { viewerOptions } from "./config/viewer"
+
 export const output = signal<E.IStandaloneCodeEditor | null>(null)
 
 export const Output = () => {
@@ -12,18 +14,7 @@ export const Output = () => {
 
   useEffect(() => {
     if (ref.current != null) {
-      output.value = E.create(ref.current, {
-        theme: "dracula",
-        automaticLayout: true,
-        minimap: { enabled: false },
-        lineNumbers: "off",
-        language: "javascript",
-        renderLineHighlight: "none",
-        fontFamily: "Fira Code",
-        fontLigatures: true,
-        readOnly: true,
-        fontSize: 14
-      })
+      output.value = E.create(ref.current, viewerOptions)
     }
   }, [ref])
 

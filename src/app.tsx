@@ -16,13 +16,17 @@ import { Output, output } from "./output"
 export const editor = signal<E.IStandaloneCodeEditor | null>(null)
 
 /* eslint-disable */
-keywords.forEach((k) => {
-  // @ts-ignore
-  if (!window[k]) {
-    // @ts-ignore
-    window[k] = R[k] ?? RA[k] ?? P[k]
-  }
-})
+const exposeGlobals = () => {
+  keywords.forEach((k: any) => {
+    if (!window[k]) {
+      // @ts-ignore
+      const func = R[k] ?? RA[k] ?? P[k]
+      if (RA.isFunction(func)) {
+        window[k] = func
+      }
+    }
+  })
+}
 /* eslint-enable */
 
 const handleCodeChange = (): void => {
@@ -31,6 +35,7 @@ const handleCodeChange = (): void => {
       const js = transform(editor.value.getValue(), {
         transforms: ["typescript"]
       })
+      exposeGlobals()
       const result: unknown = eval(js.code)
       if (result !== undefined) {
         output.value.setValue(

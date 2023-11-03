@@ -81,7 +81,7 @@ export const keywords = [
   ...Object.getOwnPropertyNames(R),
   ...Object.getOwnPropertyNames(RA),
   ...Object.getOwnPropertyNames(P)
-]
+] as Array<keyof typeof R | keyof typeof RA | keyof typeof P>
 
 const mappers: languages.IMonarchLanguageRule[] = keywords.map((k) => [
   new RegExp(`\\b${k}\\b`),
