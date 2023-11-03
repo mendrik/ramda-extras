@@ -15,6 +15,7 @@
     "preact": "^10.16.0",
     "purify-ts": "^2.0.1",
     "ramda": "^0.29.1",
+    "ramda-types": "1.0.0",
     "ramda-adjunct": "^4.1.1",
     "sucrase": "3.34.0"
   },
@@ -40,6 +41,8 @@
     "rollup-plugin-visualizer": "5.9.2",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
+    "vite-plugin-plain-text": "^1.4.2",
+    "vite-plugin-virtual-plain-text": "1.4.3",
     "vite-plugin-svgr": "^4.1.0"
   }
 }
