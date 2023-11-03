@@ -14,6 +14,7 @@ export const Output = () => {
     if (ref.current != null) {
       output.value = E.create(ref.current, {
         theme: "dracula",
+        automaticLayout: true,
         minimap: { enabled: false },
         lineNumbers: "off",
         language: "javascript",

@@ -83,13 +83,17 @@ export const keywords = [
   ...Object.getOwnPropertyNames(P)
 ]
 
+const mappers: languages.IMonarchLanguageRule[] = keywords.map((k) => [
+  new RegExp(`\\b${k}\\b`),
+  "library.function"
+])
+
 export const language: languages.IMonarchLanguage = {
   // Set defaultToken to invalid to see what you do not tokenize yet
   defaultToken: "invalid",
   tokenPostfix: ".ts",
 
   keywords: [
-    ...keywords,
     "abstract",
     "any",
     "as",
@@ -232,7 +236,7 @@ export const language: languages.IMonarchLanguage = {
 
   // The main tokenizer for our languages
   tokenizer: {
-    root: [[/[{}]/, "delimiter.bracket"], { include: "common" }],
+    root: [...mappers, [/[{}]/, "delimiter.bracket"], { include: "common" }],
 
     common: [
       // identifiers and keywords

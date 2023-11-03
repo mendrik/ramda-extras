@@ -12,6 +12,7 @@ languages.setMonarchTokensProvider(myLang, language)
 
 export const editorOptions: E.IStandaloneEditorConstructionOptions = {
   theme: "dracula",
+  automaticLayout: true,
   showFoldingControls: "mouseover",
   minimap: { enabled: false },
   lineNumbers: "off",

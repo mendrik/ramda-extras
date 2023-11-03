@@ -29,4 +29,6 @@
 
 .monaco-editor {
   padding-top: 15px;
+  width: 100%;
+  flex: 1;
 }
