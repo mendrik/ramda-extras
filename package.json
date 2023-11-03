@@ -15,7 +15,7 @@
     "purify-ts": "^2.0.1",
     "ramda": "^0.29.1",
     "ramda-adjunct": "^4.1.1",
-    "typescript": "^5.0.2"
+    "sucrase": "3.34.0"
   },
   "devDependencies": {
     "@types/ramda": "^0.29.7",
@@ -37,6 +37,7 @@
     "postcss": "^8.4.31",
     "prettier": "3.0.3",
     "vite": "^4.4.5",
-    "vite-plugin-svgr": "^4.1.0"
+    "vite-plugin-svgr": "^4.1.0",
+    "typescript": "^5.0.2"
   }
 }

@@ -7,7 +7,7 @@ import { editor as E } from "monaco-editor"
 import * as P from "purify-ts"
 import * as R from "ramda"
 import * as RA from "ramda-adjunct"
-import { transpile } from "typescript"
+import { transform } from "sucrase"
 
 import { editorOptions } from "./config/editor"
 import { keywords } from "./config/tslang"
@@ -28,8 +28,10 @@ keywords.forEach((k) => {
 const handleCodeChange = (): void => {
   if (output.value && editor.value) {
     try {
-      const js = transpile(editor.value.getValue(), { noEmit: true })
-      const result: unknown = eval(js)
+      const js = transform(editor.value.getValue(), {
+        transforms: ["typescript"]
+      })
+      const result: unknown = eval(js.code)
       if (result !== undefined) {
         output.value.setValue(
           JSON.stringify(result, null, 2).replace('"use strict"', "")
@@ -70,8 +72,8 @@ export const App = () => {
   return (
     <>
       <nav>
-        <h2 className="title" data-title="typescript ramda with extras">
-          typescript ramda with extras
+        <h2 className="title" data-title="ramda, ramda-adjunct, purify-ts">
+          ramda, ramda-adjunct, purify-ts
         </h2>
       </nav>
       <div class="box editor" ref={ref}></div>
