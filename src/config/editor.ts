@@ -3,18 +3,22 @@ import { editor as E, languages, Uri } from "monaco-editor"
 import theme from "../assets/dracula.theme.json"
 import purifyTypes from "../assets/purify-ts/esm/index.d.cts?raw"
 import ramdaAdjunctTypes from "../assets/ramda-adjunct/types/index.d.d.cts?raw"
+import ramdaTypes from "../assets/types-ramda/es/index.d.d.cts?raw"
 
-const typeDeclaration = `${[
-  purifyTypes,
-  ramdaAdjunctTypes,
-  ramdaAdjunctTypes
-].join("\n\n")}`
+const typeDeclaration = `
+  ${[ramdaAdjunctTypes, purifyTypes, ramdaTypes].join("\n\n")}
+`
 
-const libUri = "filename:../assets/purify-ts/esm/index.d.cts"
+const libUri = "file:///node_modules/@types/ramda-extras/index.d.ts"
+const tsDef = languages.typescript.typescriptDefaults
 
-languages.typescript.javascriptDefaults.addExtraLib(typeDeclaration, libUri)
-E.createModel(typeDeclaration, "typescript", Uri.parse(libUri))
-
+tsDef.addExtraLib(typeDeclaration, libUri)
+tsDef.setCompilerOptions({
+  ...tsDef.getCompilerOptions(),
+  module: languages.typescript.ModuleKind.CommonJS,
+  moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs
+})
+E.createModel(typeDeclaration, "typescript", Uri.parse("file:///main.tsx"))
 E.defineTheme("dracula", theme as E.IStandaloneThemeData)
 
 export const initialCode =
