@@ -1,6 +1,6 @@
 import "./nav.css"
 
-import { IconBook2, IconCopy } from "@tabler/icons-react"
+import { IconBook2, IconCopy, IconIndentIncrease } from "@tabler/icons-react"
 
 import { editor } from "../input/input"
 
@@ -13,6 +13,10 @@ const copyCode = () => {
     url.searchParams.set("code", code)
     void navigator.clipboard.writeText(url.toString())
   }
+}
+
+const format = () => {
+  void editor.value?.getAction("editor.action.formatDocument")?.run()
 }
 
 export const Nav = () => (
@@ -31,6 +35,12 @@ export const Nav = () => (
         <button onClick={copyCode}>
           <IconCopy stroke={1} />
           Share
+        </button>
+      </li>
+      <li>
+        <button onClick={format}>
+          <IconIndentIncrease stroke={1} />
+          Format
         </button>
       </li>
     </ul>

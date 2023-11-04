@@ -35,8 +35,12 @@ export const editorOptions: E.IStandaloneEditorConstructionOptions = {
   fontFamily: "Fira Code",
   fontLigatures: true,
   fontSize: 14,
+  autoIndent: "full",
+  formatOnPaste: true,
   value: initialCode,
   scrollbar: {
     useShadows: false
-  }
+  },
+  tabSize: 2,
+  insertSpaces: true
 }
