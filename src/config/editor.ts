@@ -1,13 +1,16 @@
 import { editor as E, languages, Uri } from "monaco-editor"
 
 import theme from "../assets/dracula.theme.json"
-import purifyTypes from "../assets/purify-ts/esm/index.d.ts?raw"
+import purifyTypes from "../assets/purify-ts/esm/index.d.cts?raw"
+import ramdaAdjunctTypes from "../assets/ramda-adjunct/types/index.d.d.cts?raw"
 
-const typeDeclaration = `declare global {\n ${[purifyTypes].join("\n")} };`
+const typeDeclaration = `${[
+  purifyTypes,
+  ramdaAdjunctTypes,
+  ramdaAdjunctTypes
+].join("\n\n")}`
 
-console.log(typeDeclaration)
-
-const libUri = "ts:filename/ramda-extras.d.ts"
+const libUri = "filename:../assets/purify-ts/esm/index.d.cts"
 
 languages.typescript.javascriptDefaults.addExtraLib(typeDeclaration, libUri)
 E.createModel(typeDeclaration, "typescript", Uri.parse(libUri))

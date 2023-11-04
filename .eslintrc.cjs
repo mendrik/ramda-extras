@@ -11,7 +11,8 @@ module.exports = {
     "*.config.ts",
     "**/*.css",
     "**/*.scss",
-    "**/*.d.ts"
+    "**/*.d.ts",
+    "**/*.d.cts"
   ],
   plugins: ["@typescript-eslint"],
   extends: [
