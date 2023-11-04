@@ -4,10 +4,11 @@ import "./output.css"
 
 import { signal } from "@preact/signals"
 import { editor as E } from "monaco-editor"
+import type { Signal } from "@preact/signals"
 
 import { viewerOptions } from "../../config/viewer"
 
-export const output = signal<E.IStandaloneCodeEditor | null>(null)
+export const output: Signal<E.IStandaloneCodeEditor | null> = signal(null)
 
 export const Output = () => {
   const ref = useRef<HTMLDivElement>(null)

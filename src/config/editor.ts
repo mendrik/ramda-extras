@@ -1,14 +1,25 @@
-import { editor as E, languages } from "monaco-editor"
+import { editor as E, languages, Uri } from "monaco-editor"
 
 import theme from "../assets/dracula.theme.json"
-import { conf, language } from "./tslang"
+import purifyTypes from "../assets/purify-ts/esm/index.d.cts?raw"
+import ramdaAdjunctTypes from "../assets/ramda-adjunct/types/index.d.d.cts?raw"
+import ramdaTypes from "../assets/types-ramda/es/index.d.d.cts?raw"
 
-const myLang = "ramda-typescript"
+const typeDeclaration = `
+  ${[ramdaAdjunctTypes, purifyTypes, ramdaTypes].join("\n\n")}
+`
 
+const libUri = "file:///node_modules/@types/ramda-extras/index.d.ts"
+const tsDef = languages.typescript.typescriptDefaults
+
+tsDef.addExtraLib(typeDeclaration, libUri)
+tsDef.setCompilerOptions({
+  ...tsDef.getCompilerOptions(),
+  module: languages.typescript.ModuleKind.CommonJS,
+  moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs
+})
+E.createModel(typeDeclaration, "typescript", Uri.parse("file:///main.tsx"))
 E.defineTheme("dracula", theme as E.IStandaloneThemeData)
-languages.register({ id: myLang })
-languages.setLanguageConfiguration(myLang, conf)
-languages.setMonarchTokensProvider(myLang, language)
 
 export const initialCode =
   new URLSearchParams(document.location.search).get("code") ?? undefined
@@ -20,7 +31,7 @@ export const editorOptions: E.IStandaloneEditorConstructionOptions = {
   minimap: { enabled: false },
   lineNumbers: "on",
   renderLineHighlight: "none",
-  language: myLang,
+  language: "typescript",
   fontFamily: "Fira Code",
   fontLigatures: true,
   fontSize: 14,
