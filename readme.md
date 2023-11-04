@@ -1,9 +1,10 @@
 ### Ramda REPL
 
-Improved ramda REPL, beecause I was annoyed I cannot copy/paste code between typescript and ramda repl.
-It also packs purify-ts and ramda-adjunct libs as global imports.
+Improved ramda REPL. supports typescript with types for ramda, ramda-adjunct and purify-ts.
 
 https://www.ramda.run
+
+![image](https://github.com/mendrik/ramda-extras/assets/160805/c935c5e0-c1a4-460f-a05a-554e71af68fa)
 
 ### Notes
 
