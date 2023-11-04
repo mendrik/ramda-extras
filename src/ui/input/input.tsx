@@ -8,11 +8,12 @@ import * as P from "purify-ts"
 import * as R from "ramda"
 import { keys, without } from "ramda"
 import * as RA from "ramda-adjunct"
+import type { Signal } from "@preact/signals"
 
 import { editorOptions } from "../../config/editor"
 import { handleCodeChange } from "../../logic/handleCodeChange"
 
-export const editor = signal<E.IStandaloneCodeEditor | null>(null)
+export const editor: Signal<E.IStandaloneCodeEditor | null> = signal(null)
 
 export const ramdaKeys = keys(R)
 export const ramdaAdjunctKeys = without(ramdaKeys, keys(RA))
