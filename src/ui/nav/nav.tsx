@@ -1,22 +1,22 @@
-import "./nav.css"
+import './nav.css'
 
-import { IconBook2, IconCopy, IconIndentIncrease } from "@tabler/icons-react"
+import { IconBook2, IconCopy, IconIndentIncrease } from '@tabler/icons-react'
 
-import { editor } from "../input/input"
+import { editor } from '../input/input'
 
-const goToRamdaDocs = () => window.open("https://ramdajs.com/docs/")
+const goToRamdaDocs = () => window.open('https://ramdajs.com/docs/')
 
 const copyCode = () => {
   const code = editor.value?.getValue()
   if (code) {
     const url = new URL(document.location.href)
-    url.searchParams.set("code", code)
+    url.searchParams.set('code', code)
     void navigator.clipboard.writeText(url.toString())
   }
 }
 
 const format = () => {
-  void editor.value?.getAction("editor.action.formatDocument")?.run()
+  void editor.value?.getAction('editor.action.formatDocument')?.run()
 }
 
 export const Nav = () => (

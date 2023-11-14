@@ -1,41 +1,42 @@
-import { editor as E, languages, Uri } from "monaco-editor"
+import { editor as E, languages, Uri } from 'monaco-editor'
 
-import theme from "../assets/dracula.theme.json"
-import purifyTypes from "../assets/purify-ts/esm/index.d.cts?raw"
-import ramdaAdjunctTypes from "../assets/ramda-adjunct/types/index.d.d.cts?raw"
-import ramdaTypes from "../assets/types-ramda/es/index.d.d.cts?raw"
+import theme from '../assets/dracula.theme.json'
+import overrideTypes from '../assets/overrides.d.ts?raw'
+import purifyTypes from '../assets/purify-ts/esm/index.d.cts?raw'
+import ramdaAdjunctTypes from '../assets/ramda-adjunct/types/index.d.d.cts?raw'
+import ramdaTypes from '../assets/types-ramda/es/index.d.d.cts?raw'
 
 const typeDeclaration = `
-  ${[ramdaAdjunctTypes, purifyTypes, ramdaTypes].join("\n\n")}
+  ${[overrideTypes, ramdaAdjunctTypes, purifyTypes, ramdaTypes].join('\n\n')}
 `
 
-const libUri = "file:///node_modules/@types/ramda-extras/index.d.ts"
+const libUri = 'file:///node_modules/@types/ramda-extras/index.d.ts'
 const tsDef = languages.typescript.typescriptDefaults
 
 tsDef.addExtraLib(typeDeclaration, libUri)
 tsDef.setCompilerOptions({
   ...tsDef.getCompilerOptions(),
+  noLib: true,
   module: languages.typescript.ModuleKind.CommonJS,
   moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs
 })
-E.createModel(typeDeclaration, "typescript", Uri.parse("file:///main.tsx"))
-E.defineTheme("dracula", theme as E.IStandaloneThemeData)
+E.createModel(typeDeclaration, 'typescript', Uri.parse('file:///main.tsx'))
+E.defineTheme('dracula', theme as E.IStandaloneThemeData)
 
-export const initialCode =
-  new URLSearchParams(document.location.search).get("code") ?? undefined
+export const initialCode = new URLSearchParams(document.location.search).get('code') ?? undefined
 
 export const editorOptions: E.IStandaloneEditorConstructionOptions = {
-  theme: "dracula",
+  theme: 'dracula',
   automaticLayout: true,
-  showFoldingControls: "mouseover",
+  showFoldingControls: 'mouseover',
   minimap: { enabled: false },
-  lineNumbers: "on",
-  renderLineHighlight: "none",
-  language: "typescript",
-  fontFamily: "Fira Code",
+  lineNumbers: 'on',
+  renderLineHighlight: 'none',
+  language: 'typescript',
+  fontFamily: 'Fira Code',
   fontLigatures: true,
   fontSize: 14,
-  autoIndent: "full",
+  autoIndent: 'full',
   formatOnPaste: true,
   value: initialCode,
   scrollbar: {

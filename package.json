@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/ramda": "^0.29.7",
     "@preact/signals": "^1.2.1",
     "@tabler/icons-react": "^2.40.0",
     "monaco-editor": "0.44.0",
@@ -22,7 +23,6 @@
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.5.0",
-    "@types/ramda": "^0.29.7",
     "@typescript-eslint/eslint-plugin": "5.59.0",
     "@typescript-eslint/experimental-utils": "5.59.0",
     "@typescript-eslint/parser": "5.59.0",

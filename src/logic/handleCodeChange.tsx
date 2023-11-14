@@ -1,11 +1,11 @@
-import * as P from "purify-ts"
-import * as R from "ramda"
-import { keys, without } from "ramda"
-import * as RA from "ramda-adjunct"
-import { transform } from "sucrase"
+import * as P from 'purify-ts'
+import * as R from 'ramda'
+import { keys, without } from 'ramda'
+import * as RA from 'ramda-adjunct'
+import { transform } from 'sucrase'
 
-import { editor } from "../ui/input/input"
-import { output } from "../ui/output/output"
+import { editor } from '../ui/input/input'
+import { output } from '../ui/output/output'
 
 export const ramdaKeys = keys(R)
 export const ramdaAdjunctKeys = without(ramdaKeys, keys(RA))
@@ -16,7 +16,7 @@ export const handleCodeChange = (): void => {
     try {
       // convert to js
       const js = transform(editor.value.getValue(), {
-        transforms: ["typescript"]
+        transforms: ['typescript']
       })
 
       // expose libs as window globals
@@ -28,25 +28,24 @@ export const handleCodeChange = (): void => {
 
       // expose global imports
       const code = `
-        const {${ramdaKeys.join(",")}} = R;
-        const {${ramdaAdjunctKeys.join(",")}} = RA;
-        const {${purifyKeys.join(",")}} = P;
-       ${js.code}`
+        const {${ramdaKeys.join(',')}} = R;
+        const {${ramdaAdjunctKeys.join(',')}} = RA;
+        const {${purifyKeys.join(',')}} = P;
+        ${js.code}
+      `
 
       // run code
       const result: unknown = window.eval(code)
 
       // show result
       if (result !== undefined) {
-        output.value.setValue(
-          JSON.stringify(result, null, 2).replace('"use strict"', "")
-        )
+        output.value.setValue(JSON.stringify(result, null, 2).replace('"use strict"', ''))
       } else {
-        output.value.setValue("")
+        output.value.setValue('')
       }
     } catch (e: unknown) {
       if (e instanceof Error) {
-        output.value.getModel()?.setValue(`${e.message}\n${e.stack ?? ""}`)
+        output.value.getModel()?.setValue(`${e.message}\n${e.stack ?? ''}`)
       } else {
         output.value.getModel()?.setValue(`${e as string}`)
       }
