@@ -5264,6 +5264,7 @@ declare function lastIndexOf<T>(target: T, list: readonly T[]): number
  * ```
  */
 declare function length<T extends { length: number }>(list: T): number
+declare function length<T extends any[]>(list: T): number
 
 /**
  * Returns a lens for the given getter and setter functions. The getter "gets"
@@ -9564,3 +9565,5 @@ declare function zipWith<T, U, TResult>(
   list1: readonly T[],
   list2: readonly U[]
 ): TResult[]
+
+

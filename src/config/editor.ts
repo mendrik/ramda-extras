@@ -1,13 +1,13 @@
 import { editor as E, languages, Uri } from 'monaco-editor'
 
 import theme from '../assets/dracula.theme.json'
-import overrideTypes from '../assets/overrides.d.ts?raw'
 import purifyTypes from '../assets/purify-ts/esm/index.d.cts?raw'
 import ramdaAdjunctTypes from '../assets/ramda-adjunct/types/index.d.d.cts?raw'
 import ramdaTypes from '../assets/types-ramda/es/index.d.d.cts?raw'
+ 
 
 const typeDeclaration = `
-  ${[overrideTypes, ramdaAdjunctTypes, purifyTypes, ramdaTypes].join('\n\n')}
+  ${[ramdaTypes, ramdaAdjunctTypes, purifyTypes].join('\n\n')}
 `
 
 const libUri = 'file:///node_modules/@types/ramda-extras/index.d.ts'
@@ -16,7 +16,7 @@ const tsDef = languages.typescript.typescriptDefaults
 tsDef.addExtraLib(typeDeclaration, libUri)
 tsDef.setCompilerOptions({
   ...tsDef.getCompilerOptions(),
-  noLib: true,
+  lib: ['es2023'],
   module: languages.typescript.ModuleKind.CommonJS,
   moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs
 })
