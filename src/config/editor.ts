@@ -16,7 +16,9 @@ const tsDef = languages.typescript.typescriptDefaults
 tsDef.addExtraLib(typeDeclaration, libUri)
 tsDef.setCompilerOptions({
   ...tsDef.getCompilerOptions(),
-  lib: ['es2023'],
+  lib: ['es2023','dom'],
+  inlineSourceMap: true,
+  inlineSources: true,
   module: languages.typescript.ModuleKind.CommonJS,
   moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs
 })
