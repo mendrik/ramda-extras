@@ -1,11 +1,12 @@
 import * as P from 'purify-ts'
 import * as R from 'ramda'
-import { keys, without } from 'ramda'
+import { keys, without, join } from 'ramda'
 import * as RA from 'ramda-adjunct'
 import { transform } from 'sucrase'
 
 import { editor } from '../ui/input/input'
 import { output } from '../ui/output/output'
+import { logData } from './logger'
 
 export const ramdaKeys = keys(R)
 export const ramdaAdjunctKeys = without(ramdaKeys, keys(RA))
@@ -19,6 +20,8 @@ export const handleCodeChange = (): void => {
         transforms: ['typescript']
       })
 
+      logData.value = []
+
       // expose libs as window globals
       Object.defineProperties(window, {
         R: { value: R, writable: false },
@@ -26,6 +29,8 @@ export const handleCodeChange = (): void => {
         P: { value: P, writable: false }
       })
 
+
+      
       // expose global imports
       const code = `
         const {${ramdaKeys.join(',')}} = R;
@@ -36,10 +41,14 @@ export const handleCodeChange = (): void => {
 
       // run code
       const result: unknown = window.eval(code)
+      const loggedText = logData.value.map(join(', ')).join('\n')
 
       // show result
       if (result !== undefined) {
-        output.value.setValue(JSON.stringify(result, null, 2).replace('"use strict"', ''))
+        const evalText = JSON.stringify(result, null, 2).replace('"use strict"', '')
+        output.value.setValue(loggedText + '\n' + evalText)
+      } else if (loggedText !== ''){
+        output.value.setValue(loggedText)
       } else {
         output.value.setValue('')
       }
